@@ -1,0 +1,21 @@
+name: PullRequest
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: lint
+      uses: norio-nomura/action-swiftlint@3.1.0
+  test:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test
+      run: |
+        sudo xcode-select -switch /Applications/Xcode_11.4.app
+        xcodebuild test -workspace .swiftpm/xcode/package.xcworkspace/ -scheme "CocoaSinks" -sdk iphonesimulator13.4 -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.4'
