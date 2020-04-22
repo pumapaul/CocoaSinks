@@ -9,24 +9,24 @@ import UIKit
 import Combine
 
 public extension Bind where Base: UIButton {
-    var attributedTitle: MethodBinder<NSAttributedString?, NSAttributedString, Base> {
-        MethodBinder(root: self) { (prop, base) in
-            base.setAttributedTitle(prop, for: .normal)
+    var attributedTitle: MethodBinderTwoParameters<NSAttributedString?, NSAttributedString, UIButton.State, Base> {
+        MethodBinderTwoParameters(root: self) { (attrStr, state, button) in
+            button.setAttributedTitle(attrStr, for: state)
         }
     }
-    var title: MethodBinder<String?, String, Base> {
-        MethodBinder(root: self) { (prop, base) in
-            base.setTitle(prop, for: .normal)
+    var title: MethodBinderTwoParameters<String?, String, UIButton.State, Base> {
+        MethodBinderTwoParameters(root: self) { (str, state, button) in
+            button.setTitle(str, for: state)
         }
     }
-    var backgroundImage: MethodBinder<UIImage?, UIImage, Base> {
-        MethodBinder(root: self) { (prop, base) in
-            base.setBackgroundImage(prop, for: .normal)
+    var backgroundImage: MethodBinderTwoParameters<UIImage?, UIImage, UIButton.State, Base> {
+        MethodBinderTwoParameters(root: self) { (image, state, button) in
+            button.setBackgroundImage(image, for: state)
         }
     }
-    var image: MethodBinder<UIImage?, UIImage, Base> {
-        MethodBinder(root: self) { (prop, base) in
-            base.setImage(prop, for: .normal)
+    var image: MethodBinderTwoParameters<UIImage?, UIImage, UIButton.State, Base> {
+        MethodBinderTwoParameters(root: self) { (image, state, button) in
+            button.setImage(image, for: state)
         }
     }
 }
