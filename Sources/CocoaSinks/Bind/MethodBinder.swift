@@ -22,17 +22,42 @@ public final class MethodBinder<Param, UnwrappedParam, Base: AnyObject> {
 }
 
 public extension MethodBinder {
-    func to(_ publisher: AnyPublisher<Param, Never>) {
-        publisher
+    func cancellable(_ publisher: AnyPublisher<Param, Never>) -> AnyCancellable {
+        return publisher
             .receive(on: DispatchQueue.main)
             .sink { [method, weak base] in
                 guard let base = base else { return }
                 method($0, base)
             }
-            .store(in: &root.internalStore)
+    }
+    
+    func to(_ publisher: AnyPublisher<Param, Never>) {
+        cancellable(publisher).store(in: &root.internalStore)
+    }
+
+    func cancellable(_ publisher: Published<Param>.Publisher) -> AnyCancellable {
+        return cancellable(publisher.eraseToAnyPublisher())
     }
 
     func to(_ publisher: Published<Param>.Publisher) {
         to(publisher.eraseToAnyPublisher())
+    }
+}
+
+public extension MethodBinder where Param == UnwrappedParam? {
+    func to(_ publisher: AnyPublisher<UnwrappedParam, Never>) {
+        to(publisher.optional())
+    }
+
+    func to(_ publisher: Published<UnwrappedParam>.Publisher) {
+        to(publisher.eraseToAnyPublisher())
+    }
+    
+    func cancellable(_ publisher: AnyPublisher<UnwrappedParam, Never>) -> AnyCancellable {
+        return cancellable(publisher.optional())
+    }
+
+    func cancellable(_ publisher: Published<UnwrappedParam>.Publisher) -> AnyCancellable {
+        return cancellable(publisher.eraseToAnyPublisher())
     }
 }
