@@ -29,7 +29,7 @@ public extension PropertyBinder {
     func to(_ publisher: Published<Property>.Publisher) {
         to(publisher.eraseToAnyPublisher())
     }
-    
+
     func cancellable(_ publisher: AnyPublisher<Property, Never>) -> AnyCancellable {
         publisher
             .receive(on: DispatchQueue.main)
@@ -38,7 +38,7 @@ public extension PropertyBinder {
                 base[keyPath: keyPath] = newVal
             })
     }
-    
+
     func cancellable(_ publisher: Published<Property>.Publisher) -> AnyCancellable {
         return cancellable(publisher.eraseToAnyPublisher())
     }
@@ -52,11 +52,11 @@ public extension PropertyBinder where Property == UnwrappedProperty? {
     func to(_ publisher: Published<UnwrappedProperty>.Publisher) {
         to(publisher.eraseToAnyPublisher())
     }
-    
+
     func cancellable(_ publisher: AnyPublisher<UnwrappedProperty, Never>) -> AnyCancellable {
         return cancellable(publisher.optional())
     }
-    
+
     func cancellable(_ publisher: Published<UnwrappedProperty>.Publisher) -> AnyCancellable {
         return cancellable(publisher.eraseToAnyPublisher())
     }
@@ -80,7 +80,7 @@ public extension PropertyBinder where Property == CGFloat {
     func to(_ publisher: Published<Double>.Publisher) {
         to(publisher.eraseToAnyPublisher())
     }
-    
+
     func cancellable(_ publisher: AnyPublisher<Float, Never>) -> AnyCancellable {
         let asCGFloat = publisher.map { CGFloat($0) }.eraseToAnyPublisher()
         return cancellable(asCGFloat)
@@ -118,7 +118,7 @@ public extension PropertyBinder where Property == UIImage? {
     func to(data: Published<Data?>.Publisher) {
         to(data: data.eraseToAnyPublisher())
     }
-    
+
     func cancellable(data: AnyPublisher<Data, Never>) -> AnyCancellable {
         let asImage = data.map { UIImage(data: $0) }.eraseToAnyPublisher()
         return cancellable(asImage)

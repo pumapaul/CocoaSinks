@@ -50,7 +50,7 @@ extension UIImageViewTests {
             XCTAssertEqual(self.imageView.image?.pngData(), UIImage(data: self.imageData)?.pngData())
         }
     }
-    
+
     func testImage_Data_cancellable() {
         imageView.bind.image.cancellable(data: $imageData).store(in: &cancellables)
 
@@ -58,7 +58,7 @@ extension UIImageViewTests {
             XCTAssertEqual(self.imageView.image?.pngData(), UIImage(data: self.imageData)?.pngData())
         }
     }
-    
+
     func testImage_Data_optional_cancellable() {
         imageView.bind.image.cancellable(data: $imageDataOpt).store(in: &cancellables)
 
@@ -66,7 +66,7 @@ extension UIImageViewTests {
             XCTAssertEqual(self.imageView.image?.pngData(), UIImage(data: self.imageData)?.pngData())
         }
     }
-    
+
     func testImage_Data_cancellable_nil() {
         imageView.bind.image.cancellable(data: $nilData).store(in: &cancellables)
 
@@ -82,7 +82,7 @@ extension UIImageViewTests {
             XCTAssertEqual(self.imageView.image?.pngData(), nil)
         }
     }
-    
+
     func testTintColor() {
         imageView.bind.tintColor.cancellable($tintColor).store(in: &cancellables)
 

@@ -59,7 +59,7 @@ extension UIViewTests {
             XCTAssertEqual(self.view.alpha, 0.4, accuracy: 0.0000001)
         }
     }
-    
+
     func testAlpha_cancellable() {
         view.bind.alpha.cancellable($alphaFloat).store(in: &cancellables)
 
