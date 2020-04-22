@@ -28,7 +28,7 @@ extension UITextFieldTests {
             XCTAssertEqual(self.textField.text, self.text)
         }
     }
-    
+
     func testText_cancellable() {
         textField.bind.text.cancellable($textOpt).store(in: &cancellables)
 
@@ -44,10 +44,10 @@ extension UITextFieldTests {
             XCTAssertEqual(self.textField.attributedText?.string, self.attributedText.string)
         }
     }
-    
+
     func testIsSecureTextEntry() {
         textField.bind.isSecureTextEntry.to($isSecureTextEntry)
-        
+
         executeAndWaitOnMain {
             XCTAssertEqual(self.textField.isSecureTextEntry, self.isSecureTextEntry)
         }

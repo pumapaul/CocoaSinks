@@ -30,7 +30,7 @@ public extension MethodBinder {
                 method($0, base)
             }
     }
-    
+
     func to(_ publisher: AnyPublisher<Param, Never>) {
         cancellable(publisher).store(in: &root.internalStore)
     }
@@ -52,7 +52,7 @@ public extension MethodBinder where Param == UnwrappedParam? {
     func to(_ publisher: Published<UnwrappedParam>.Publisher) {
         to(publisher.eraseToAnyPublisher())
     }
-    
+
     func cancellable(_ publisher: AnyPublisher<UnwrappedParam, Never>) -> AnyCancellable {
         return cancellable(publisher.optional())
     }
